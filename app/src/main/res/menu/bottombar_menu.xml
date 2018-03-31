@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab_cameras"
+        android:enabled="true"
+        android:icon="@drawable/ic_videocam_black_24dp"
+        android:title="@string/tab_camera"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/tab_media"
+        android:enabled="true"
+        android:icon="@drawable/ic_perm_media_black_24dp"
+        android:title="@string/tab_media"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/tab_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/tab_settings"
+        app:showAsAction="always" />
+</menu>
