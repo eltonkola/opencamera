@@ -6,19 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
-import com.aldroid.coinhivesdk.model.IpCamera
+import com.aldroid.coinhivesdk.model.IpCameraData
 import com.aldroid.opencamera.R
 import java.text.NumberFormat
 import java.util.*
 
 
-class IpcameraAdapter(val mData: List<IpCamera>,
-                        val onClick: IpcameraAdapter.OnClick) : RecyclerView.Adapter<IpcameraAdapter.ViewHolder>() {
+class IpCameraDataAdapter(val mData: List<IpCameraData>,
+                        val onClick: IpCameraDataAdapter.OnClick) : RecyclerView.Adapter<IpCameraDataAdapter.ViewHolder>() {
 
     interface OnClick {
-        fun onClick(element: IpCamera)
-        fun onDelete(elemen: IpCamera)
+        fun onClick(element: IpCameraData)
+        fun onDelete(elemen: IpCameraData)
     }
 
     override fun onCreateViewHolder(parent: android.view.ViewGroup, i: Int): ViewHolder {
@@ -40,11 +41,13 @@ class IpcameraAdapter(val mData: List<IpCamera>,
 
     class ViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
 
-        var image: ImageView
-        var title: TextView
-        var description: TextView
-        var but_delete : Button
-        var view_container: ViewGroup
+        val image: ImageView
+        val title: TextView
+        val description: TextView
+        val line3 : TextView
+        val but_delete : Button
+        val view_container: ViewGroup
+        val loading : ProgressBar
 
         init {
             image = v.findViewById(R.id.image)
@@ -52,16 +55,29 @@ class IpcameraAdapter(val mData: List<IpCamera>,
             description = v.findViewById(R.id.description)
             but_delete = v.findViewById(R.id.but_delete)
             view_container = v.findViewById(R.id.view_container)
+            loading = v.findViewById(R.id.loading)
+            line3 = v.findViewById(R.id.line3)
         }
 
-        fun bind(camera: IpCamera, eventz: IpcameraAdapter.OnClick) {
+        fun bind(camera: IpCameraData, eventz: IpCameraDataAdapter.OnClick) {
 
-            title.text = camera.ip
-            description.text = "TODO"
+            title.text = camera.ipCamera.ip
+            description.text = "Hw: ${camera.info.hardware} - Man: ${camera.info.manufacturer}"
+            line3.text = "Mod: ${camera.info.model} - SN: ${camera.info.serialnumber} -Ver: ${camera.info.firmwareversion}"
 
-//            Picasso.with(iconCoin.context)
-//                    .load(userCoins.logo_url)
-//                    .into(iconCoin)
+            camera.online?.let {
+                loading.visibility =  View.GONE
+                image.visibility =  View.VISIBLE
+                if(it){
+                    image.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
+                }else{
+                    image.setImageResource(R.drawable.ic_extension_black_24dp)
+                }
+            } ?: run{
+                loading.visibility =  View.VISIBLE
+                image.visibility =  View.GONE
+            }
+
 
             view_container.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View) {

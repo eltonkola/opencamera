@@ -5,11 +5,12 @@ import android.support.v7.widget.Toolbar
 import android.widget.Button
 import android.widget.EditText
 import com.aldroid.coinhivesdk.model.IpCamera
+import com.aldroid.cryptomarketcap.ui.BaseSecondaryScreen
 import com.aldroid.opencamera.MainApp
 import com.aldroid.opencamera.R
 import com.eltonkola.arkitekt.AppScreen
 
-class CameraAddScreen :  AppScreen<Void>() {
+class CameraAddScreen :  BaseSecondaryScreen<Void>() {
 
     override fun getView(): Int {
         return R.layout.screen_add_camera
@@ -25,8 +26,8 @@ class CameraAddScreen :  AppScreen<Void>() {
     override fun onEntered() {
         super.onEntered()
 
-        val toolbar = mRootView.findViewById<Toolbar>(R.id.toolbar)
-        toolbar.title = "Add camera"
+        toolbar.addAction(R.drawable.ic_cancel_black_24dp, "Cancel")
+        toolbar.setActionItemClickListener { position, actionItem -> close()}
 
 
         ipAddress =  mRootView.findViewById(R.id.ipAddress)
@@ -43,7 +44,7 @@ class CameraAddScreen :  AppScreen<Void>() {
 
     fun addCamera() {
         if(ipAddress.text.length < 2){
-            toast("Please eneter ip address")
+            toast("Please enter ip address")
             return
         }
         if(username.text.length < 2){
@@ -67,7 +68,7 @@ class CameraAddScreen :  AppScreen<Void>() {
         dialog.show()
 
         val camera = IpCamera(ipAddress.text.toString(), username.text.toString(), password.text.toString())
-        cameraListManager.addCamera(camera).subscribe({
+        cameraListManager.cameraListManager.addCamera(camera).subscribe({
             dialog.dismiss()
             toast("Camera was saved!")
             close()

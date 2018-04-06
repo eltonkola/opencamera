@@ -1,32 +1,37 @@
 package com.aldroid.opencamera.dropbox
 
-import android.net.Uri
 import android.os.Environment
-import com.aldroid.opencamera.MainApp
-import com.aldroid.opencamera.util.UriHelpers
 import com.aldroid.opencamera.util.Utils
 import com.dropbox.core.DbxException
 import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.FileMetadata
 import com.dropbox.core.v2.files.ListFolderResult
-import java.io.File
-import java.io.IOException
-import java.io.FileOutputStream
 import com.dropbox.core.v2.files.WriteMode
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class DropboxManager(val dbxClientV2 : DbxClientV2 = DropboxClientFactory.getClient()) {
 
-    fun downloadFile(metadata: FileMetadata) : Single<File> {
+    val sdcardPath = Environment.getExternalStorageDirectory().toString()
+
+    fun downloadFile(mediaFile: Boolean, metadata: FileMetadata) : Single<File> {
         return Single.create<File>({
             try {
 
-                val sdcardPath = Environment.getExternalStorageDirectory().toString()
-                val appDirectory = File("$sdcardPath/opencamera")
+
+                val appDirectory: File
+                if (mediaFile) {
+                    appDirectory = File("$sdcardPath/${Utils.APP_FOLDER}/${Utils.MEDIA_FOLDER}")
+                } else {
+                    appDirectory = File("$sdcardPath/${Utils.APP_FOLDER}")
+                }
+
                 if (!appDirectory.exists()) {
                     if (!appDirectory.mkdirs()) {
                         throw RuntimeException("Unable to create directory: $appDirectory")

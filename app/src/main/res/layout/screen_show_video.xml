@@ -2,8 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="2">
+    android:orientation="vertical">
 
     <com.github.florent37.awesomebar.AwesomeBar
         android:id="@+id/toolbar"
@@ -16,11 +15,12 @@
         app:bar_primaryColor="@color/bar_primaryColor"
         app:bar_primaryDarkColor="@color/bar_primaryDarkColor"
         />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <SurfaceView
             android:id="@+id/surfaceView"
@@ -33,48 +33,16 @@
 
 
         <ProgressBar
+            android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressbar"
+            android:layout_centerInParent="true"
             />
+
+
 
     </RelativeLayout>
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:id="@+id/command_output"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="4dp">
-
-        <Button
-            android:id="@+id/b_streenshot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="Screenshot" />
-
-
-        <Button
-            android:id="@+id/b_record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Record" />
-
-
-    </LinearLayout>
 </LinearLayout>
 

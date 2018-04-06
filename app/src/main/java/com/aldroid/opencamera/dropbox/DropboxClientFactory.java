@@ -1,7 +1,6 @@
 package com.aldroid.opencamera.dropbox;
 
 
-import com.dropbox.core.DbxHost;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.http.OkHttp3Requestor;
 import com.dropbox.core.v2.DbxClientV2;
@@ -15,7 +14,9 @@ public class DropboxClientFactory {
 
     public static void init(String accessToken) {
         if (sDbxClient == null) {
-            DbxRequestConfig requestConfig = DbxRequestConfig.newBuilder("examples-v2-demo")
+            DbxRequestConfig requestConfig = DbxRequestConfig.newBuilder("open_camera")
+                    .withUserLocale("en_US")
+                    .withAutoRetryEnabled(3)
                     .withHttpRequestor(new OkHttp3Requestor(OkHttp3Requestor.defaultOkHttpClient()))
                     .build();
 

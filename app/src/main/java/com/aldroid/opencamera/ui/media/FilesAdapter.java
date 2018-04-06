@@ -2,6 +2,10 @@ package com.aldroid.opencamera.ui.media;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +16,13 @@ import android.widget.TextView;
 
 import com.aldroid.opencamera.R;
 import com.aldroid.opencamera.dropbox.FileThumbnailRequestHandler;
+import com.aldroid.opencamera.util.Utils;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.Metadata;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +34,8 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MetadataView
     private List<Metadata> mFiles;
     private final Picasso mPicasso;
     private final Callback mCallback;
+
+    private final String  sdcardPath = Environment.getExternalStorageDirectory().toString();
 
     public void setFiles(List<Metadata> files) {
         mFiles = Collections.unmodifiableList(new ArrayList<>(files));
@@ -98,19 +106,38 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MetadataView
             // be picked up by DropboxPicassoRequestHandler
 
             if (item instanceof FileMetadata) {
+
+
                 MimeTypeMap mime = MimeTypeMap.getSingleton();
                 String ext = item.getName().substring(item.getName().indexOf(".") + 1);
                 String type = mime.getMimeTypeFromExtension(ext);
+
                 if (type != null && type.startsWith("image/")) {
                     mPicasso.load(FileThumbnailRequestHandler.buildPicassoUri((FileMetadata)item))
                             .placeholder(R.drawable.ic_launcher_background)
                             .error(R.drawable.ic_launcher_background)
                             .into(mImageView);
+                }else if (type != null && type.startsWith("video/")) {
+
+                    final File video =  new File(sdcardPath + "/" + Utils.APP_FOLDER+ "/" + Utils.MEDIA_FOLDER + "/" + item.getName());
+                    if(video.exists()){
+                        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.getAbsolutePath(),
+                                MediaStore.Images.Thumbnails.MINI_KIND);
+                        mImageView.setImageBitmap(thumb);
+                    }else {
+                        mPicasso.load(FileThumbnailRequestHandler.buildPicassoUri((FileMetadata) item))
+                                .placeholder(R.drawable.ic_launcher_background)
+                                .error(R.drawable.ic_launcher_background)
+                                .into(mImageView);
+                    }
                 } else {
-                    mPicasso.load(R.drawable.ic_launcher_background)
+                    mPicasso.load(R.drawable.ic_perm_media_black_24dp)
                             .noFade()
                             .into(mImageView);
                 }
+
+
+
             } else if (item instanceof FolderMetadata) {
                 mPicasso.load(R.drawable.ic_launcher_background)
                         .noFade()

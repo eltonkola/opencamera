@@ -1,27 +1,38 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    >
+    <LinearLayout
+        android:id="@+id/contentContainer"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar"
+        android:orientation="vertical"
+        >
+        <com.github.florent37.awesomebar.AwesomeBar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:bar_actionsColor="@color/bar_actionsColor"
+            app:bar_animatedIcons="true"
+            android:background="@color/bar_background"
+            app:bar_primaryColor="@color/bar_primaryColor"
+            app:bar_primaryDarkColor="@color/bar_primaryDarkColor"
+            />
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+        </WebView>
 
 
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    </LinearLayout>
 
-    </WebView>
-
-
-</LinearLayout>
+</RelativeLayout>
 

@@ -2,39 +2,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#A6184C"
+    android:padding="12dp"
+    android:gravity="center"
+    >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="Login with your dropbox account to use this app!"
+        android:textColor="@color/bardhe"
+        android:textSize="14sp" />
 
-
-    <LinearLayout
+    <Button
+        android:id="@+id/login_button"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Connect with Dropbox" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login with your dropbox account to use this app!"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/login_button"
-            />
-
-
-
-    </LinearLayout>
 
 
 </LinearLayout>

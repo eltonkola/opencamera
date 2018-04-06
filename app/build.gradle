@@ -5,6 +5,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    signingConfigs {
+
+        devaldroid {
+            keyAlias config_keyAlias
+            keyPassword config_keyPassword
+            storeFile file(config_storeFile)
+            storePassword config_storePassword
+        }
+    }
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.aldroid.opencamera"
@@ -14,13 +25,16 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        multiDexEnabled true
+        signingConfig signingConfigs.devaldroid
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.devaldroid
         }
     }
+
 
 //    packagingOptions {
 //        exclude 'META-INF/LICENSE'
@@ -29,58 +43,66 @@ android {
 //        exclude 'META-INF/NOTICE.txt'
 //    }
 //
-
-
-
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a' //select ABIs to build APKs for
+            universalApk true //generate an additional APK that contains all the ABIs
+        }
+    }
+    // map for the version code
+    project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3, 'mips': 5, 'mips64': 6, 'x86': 8, 'x86_64': 9]
+    android.applicationVariants.all { variant ->
+        // assign different version code for each output
+        variant.outputs.each { output ->
+            output.versionCodeOverride =
+                    project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1000000 + android.defaultConfig.versionCode
+        }
+    }
+    productFlavors {
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //support libraries
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support:design:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'com.android.support:cardview-v7:27.1.0'
-
     //testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     //rx java
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
-
     //android permissions
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
-
     //gson parsing library
     implementation 'com.google.code.gson:gson:2.8.2'
-
     //ui view, swipe for delee button
-    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
-
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
     //image loader
     implementation 'com.squareup.picasso:picasso:2.71828'
-
     //network layer
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-
     //camera sdk
     implementation 'com.rvirin.onvif:onvifcamera:1.1.8'
-//    implementation project(':onvifcamera')
-
+    //    implementation project(':onvifcamera')
     //android framework
     implementation 'com.eltonkola:arkitekt:0.0.7'
-
     //video playback
-//    implementation 'com.devbrackets.android:exomedia:4.1.0'
-    implementation 'com.github.pedroSG94.vlc-example-streamplayer:pedrovlc:2.5.14'
-
+    implementation 'com.github.pedroSG94.vlc-example-streamplayer:pedrovlc:2.5.14v3'
     //dropbox for user login, saving list of cams so we can sync them on different devices and sore pics and videos
     implementation 'com.dropbox.core:dropbox-core-sdk:3.0.6'
+    //screenshots and video recording
+    implementation 'nl.bravobit:android-ffmpeg:1.1.2'
+
+    //some cool actionbar
+    implementation 'com.github.florent37:awesomebar:1.0.3'
 
 }

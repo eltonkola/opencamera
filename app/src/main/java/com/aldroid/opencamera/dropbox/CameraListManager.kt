@@ -29,7 +29,7 @@ class CameraListManager {
                     .filter {it is FileMetadata}
                     .filter { it.name.contentEquals("camera_list.json") }.firstOrNull()
             if(camera_list!=null){
-                dropboxManager.downloadFile(camera_list as FileMetadata).subscribe({
+                dropboxManager.downloadFile(false, camera_list as FileMetadata).subscribe({
                     //we got the list from dropbox
                     readCameraFile(it)
                 },{

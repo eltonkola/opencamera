@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/header"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    >
+
+  <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="74dp"
+      android:layout_height="74dp"
+      android:paddingTop="20dp"
+      app:srcCompat="@drawable/ic_logo"
+      />
+
+  <TextView
+      android:id="@+id/navbar_total_market_cap_usd"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="10dp"
+      android:text="Open Camera"
+      android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+      />
+
+  <TextView
+      android:id="@+id/navbar_total_24h_volume_usd"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Version: 1.0"
+      />
+
+</LinearLayout>

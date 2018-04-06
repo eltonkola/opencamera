@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <!-- The main content view -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,15 +24,19 @@
       android:layout_above="@+id/bottomBar"
       android:orientation="vertical"
       >
-    <android.support.v7.widget.Toolbar
+    <com.github.florent37.awesomebar.AwesomeBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+        app:bar_actionsColor="@color/bar_actionsColor"
+        app:bar_animatedIcons="true"
+        android:background="@color/bar_background"
+        app:bar_primaryColor="@color/bar_primaryColor"
+        app:bar_primaryDarkColor="@color/bar_primaryDarkColor"
+
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +69,7 @@
       android:layout_height="60dp"
 
       android:layout_alignParentBottom="true"
-      app:itemBackground="@color/colorPrimary"
+      app:itemBackground="@color/gray"
       app:itemIconTint="@color/colorAccent"
       app:itemTextColor="@color/colorDark"
 
@@ -66,3 +78,16 @@
 </RelativeLayout>
 
 
+
+  <android.support.design.widget.NavigationView
+      android:id="@+id/left_drawer"
+      android:layout_width="360dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="start"
+      android:fitsSystemWindows="true"
+      app:headerLayout="@layout/nav_header_main"
+      app:menu="@menu/activity_main_drawer"
+      />
+
+
+</android.support.v4.widget.DrawerLayout>

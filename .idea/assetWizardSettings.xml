@@ -78,7 +78,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/android_studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_settings_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/android_studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_cancel_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -88,7 +88,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_settings_black_24dp" />
+                            <entry key="outputName" value="ic_cancel_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\elton" />
                           </map>
                         </option>

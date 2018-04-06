@@ -22,17 +22,10 @@ class SplashScreen : AppScreen<Void>() {
         return R.layout.screen_splash
     }
 
-    protected lateinit var toolbar: Toolbar
-
     val prefManager = PrefManager()
 
     override fun onEntered() {
         super.onEntered()
-
-        toolbar = mRootView.findViewById(R.id.toolbar)
-
-        toolbar.title = "Login"
-
 
         val loginButton = mRootView.findViewById(R.id.login_button) as Button
 
@@ -45,7 +38,7 @@ class SplashScreen : AppScreen<Void>() {
 
 
         Utils.log("-----encryptor text----")
-        val origjinali = "top sekret ehste kjo vlere bre burre id heut"
+        val origjinali = "this is some encryped text, will use it later to encrypt ipcameras password"
         val enkryped = Encryptor.encrypt(key, initVector, origjinali)
         val dekripted = Encryptor.decrypt(key, initVector, enkryped)
         Utils.log("origjinali: " + origjinali)
@@ -65,10 +58,12 @@ class SplashScreen : AppScreen<Void>() {
             accessToken = Auth.getOAuth2Token()
             if (accessToken != null) {
                 prefManager.setAccessToken(accessToken)
-                initAndLoadData(accessToken)
+                MainApp.instance.getCameraListManager()
+                gotToApp()
+
             }
         } else {
-            initAndLoadData(accessToken)
+            gotToApp()
         }
 
         val uid = Auth.getUid()
@@ -91,15 +86,6 @@ class SplashScreen : AppScreen<Void>() {
                         close()
                     }
                 }
-    }
-
-    private fun initAndLoadData(accessToken: String) {
-        DropboxClientFactory.init(accessToken)
-        PicassoClient.init(MainApp.instance, DropboxClientFactory.getClient())
-        MainApp.instance.getCameraListManager()
-        //TODO - do shit here..
-        gotToApp()
-
     }
 
 

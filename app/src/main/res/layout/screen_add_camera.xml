@@ -4,65 +4,56 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <com.github.florent37.awesomebar.AwesomeBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-
+        app:bar_actionsColor="@color/colorAccent"
+        app:bar_animatedIcons="true"
+        android:background="@color/bar_background"
+        app:bar_primaryColor="@color/bar_primaryColor"
+        app:bar_primaryDarkColor="@color/bar_primaryDarkColor"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:padding="8dp"
         android:layout_weight="1">
 
 
         <EditText
             android:id="@+id/ipAddress"
-            android:layout_width="269dp"
-            android:layout_height="46dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/ip_address"
             android:inputType="textUri"
-            app:layout_constraintBottom_toTopOf="@+id/login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="269dp"
-            android:layout_height="46dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/login"
             android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ipAddress" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="269dp"
-            android:layout_height="46dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/explanationTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login" />
 
 
 
         <Button
+            android:drawableLeft="@drawable/ic_save_black_24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create"

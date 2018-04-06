@@ -1,14 +1,45 @@
 package com.aldroid.opencamera.util;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
 
 public class Utils {
 
     final static public String APP_KEY = "yzkwwegqg2e2mt1";
     final static public String APP_SECRET = "2dc14mqgp9n0rrn";
 
+
+    final static public String MEDIA_FOLDER = "/media";
+    final static public String APP_FOLDER = "/opencamera";
+
     public static void log(String log){
         Log.v("eltonkolaxx", log);
+    }
+
+    public static void share(@Nullable Context mContext, @NotNull File localFile) {
+
+        if(!localFile.exists()){
+            return;
+        }else {
+            Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+            intentShareFile.setType("application/pdf");
+            intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+localFile.getAbsolutePath()));
+
+            intentShareFile.putExtra(Intent.EXTRA_SUBJECT,"Sharing File...");
+            intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...");
+
+            mContext.startActivity(Intent.createChooser(intentShareFile, "Share File"));
+        }
+
+
+
     }
 
     /*

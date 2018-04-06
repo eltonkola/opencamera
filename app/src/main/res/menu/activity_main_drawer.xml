@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+  <item android:title="Do you like the app?">
+    <menu>
+    <item
+        android:id="@+id/nav_rate"
+        android:icon="@drawable/ic_rate_review_black_24dp"
+        android:title="Rate"
+        />
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:title="Share"
+        />
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_android_black_24dp"
+        android:title="More apps"
+        />
+    </menu>
+  </item>
+
+  <item android:title="Source code">
+    <menu>
+      <item
+          android:id="@+id/nav_code"
+          android:icon="@drawable/ic_code_black_24dp"
+          android:title="Github"
+          />
+    </menu>
+  </item>
+
+</menu>
